@@ -14,4 +14,10 @@ router.post('/posts', async function(request, response) {
 	response.json(newPost);
 });
 
+router.put('/posts/:id', async function(request, response) {
+	const post = request.body;
+	await postsService.updatePost(request.params.id, post);
+	response.end();
+});
+
 module.exports = router;
