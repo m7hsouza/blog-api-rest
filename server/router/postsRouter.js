@@ -20,4 +20,9 @@ router.put('/posts/:id', async function(request, response) {
 	response.end();
 });
 
+router.delete('/posts/:id', async function(request, response) {
+	await postsService.deletePost(request.params.id);
+	response.end();
+});
+
 module.exports = router;
