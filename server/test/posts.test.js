@@ -26,3 +26,11 @@ test('Should get posts', async function () {
 	await postsService.deletePost(post2.id);
 	await postsService.deletePost(post3.id);
 });
+
+test('Should save a post', async function () {
+	const data = { title: generate(), content: generate() };
+	const response = await request('post', 'http://localhost:3000/posts', data);
+	const post = response.data;
+	expect(post.title).toBe(data.title);
+	await postsService.deletePost(post.id);
+});
