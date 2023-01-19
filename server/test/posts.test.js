@@ -7,7 +7,7 @@ const generate = function () {
 }
 
 const request = function (method, url, data) {
-	return axios({ url, method, data });
+	return axios({ url, method, data, validateStatus: null });
 }
 
 test('Should get posts', async function () {
@@ -47,6 +47,14 @@ test('Should update a post', async function () {
 	expect(updatedPost.title).toBe(post.title);
 	expect(updatedPost.content).toBe(post.content);
 	await postsService.deletePost(updatedPost.id);
+});
+
+test('Should not update a post', async function () {
+	const post = {
+		id: 1
+	};
+	const response = await request('put', `http://localhost:3000/posts/${post.id}`, post);
+	expect(response.status).toBe(404);
 });
 
 test('Should delete a post', async function () {

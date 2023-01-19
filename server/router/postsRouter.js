@@ -15,9 +15,13 @@ router.post('/posts', async function(request, response) {
 });
 
 router.put('/posts/:id', async function(request, response) {
-	const post = request.body;
-	await postsService.updatePost(request.params.id, post);
-	response.status(204).end();
+	try {
+		const post = request.body;
+		await postsService.updatePost(request.params.id, post);
+		response.status(204).end();
+	} catch (e) {
+		response.status(404).send(e.message);
+	}
 });
 
 router.delete('/posts/:id', async function(request, response) {
